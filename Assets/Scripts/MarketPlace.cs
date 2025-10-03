@@ -19,7 +19,7 @@ public class MarketPlace : MonoBehaviour
 
     private void Start()
     {
-        //moneySystem = FindObjectOfType<MoneySystem>();
+        moneySystem = MoneySystem.FindFirstObjectByType<MoneySystem>();
     }
 
     public void LoadKauppa()
@@ -38,7 +38,7 @@ public class MarketPlace : MonoBehaviour
         if (!kissaBought && moneySystem.SpendMoney(kissaCost))
         {
             kissaBought = true;
-            moneySystem.AddPassiveIncome(0.2f); 
+            moneySystem.AddPassiveIncome(1f); 
             
         }
     }
