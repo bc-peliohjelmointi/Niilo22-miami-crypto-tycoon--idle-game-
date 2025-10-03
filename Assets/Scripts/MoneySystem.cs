@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MoneySystem : MonoBehaviour
 {
     public int money = 100;          // Pelaajan käteinen alussa
-    public Text moneyText;
+    public TextMeshProUGUI moneyText;
 
     public float profitMultiplier = 1f;   // Alussa 1.0x
+    public TextMeshProUGUI multiplierText;
+
     public bool hasCrashShield = false;   // Onko crash shield ostettu
     private float crashShieldStrength = 0f;
 
@@ -16,6 +19,7 @@ public class MoneySystem : MonoBehaviour
     void Start()
     {
         UpdateMoneyUI();
+        UpdateMultiplierUI();
     }
 
     void Update()
@@ -63,6 +67,7 @@ public class MoneySystem : MonoBehaviour
     public void SetProfitMultiplier(float multiplier)
     {
         profitMultiplier = multiplier;
+        UpdateMultiplierUI();
     }
 
     public void EnableCrashShield(float strength)
@@ -80,5 +85,11 @@ public class MoneySystem : MonoBehaviour
     {
         if (moneyText != null)
             moneyText.text = "Raha: $" + money;
+    }
+
+    void UpdateMultiplierUI()
+    {
+        if (multiplierText != null)
+            multiplierText.text = "x " + profitMultiplier.ToString("0.00");
     }
 }
