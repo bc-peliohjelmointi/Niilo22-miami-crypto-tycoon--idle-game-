@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CryptoWallet : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class CryptoWallet : MonoBehaviour
     public float currentPrice = 1f;   // Nykyinen hinta (teidän crash-koodista päivitetään tänne)
 
     // UI (valinnainen)
-    public Text holdingsText;
-    public Text statusText;
+    public TextMeshProUGUI holdingsText;
+    public TextMeshProUGUI statusText;
 
     // Osta crypto dollareilla
     public void BuyCrypto(float dollarsToInvest)
