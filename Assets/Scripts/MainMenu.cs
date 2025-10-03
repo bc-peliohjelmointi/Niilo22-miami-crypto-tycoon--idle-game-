@@ -5,6 +5,8 @@ public class MainMenu : MonoBehaviour
 {
 
     [SerializeField] private string newGameScene; // M‰‰rit‰ unityss‰ seuraavan scenen nimi
+
+    // Lataa uuden scenen
     public void NewGame()
     {
 
