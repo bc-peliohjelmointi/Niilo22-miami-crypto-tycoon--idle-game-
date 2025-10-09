@@ -20,6 +20,9 @@ public class CrashManager : MonoBehaviour
     public TextMeshProUGUI statusText;
     public Button stopButton;
 
+    // Sound
+    public AudioSource loseAudio;
+
     void Start()
     {
         if (stopButton != null)
@@ -43,9 +46,9 @@ public class CrashManager : MonoBehaviour
         }
 
         moneySystem.SpendMoney((int)fixedBet);
-        betAmount = fixedBet;
+        betAmount += fixedBet;
 
-        if (statusText) statusText.text = "You placed. Press Start when ready!";
+        if (statusText) statusText.text = "You placed: " + betAmount + "$ Press Start when ready!";
     }
 
     // Start button
@@ -100,6 +103,8 @@ public class CrashManager : MonoBehaviour
 
                 if (statusText) statusText.text = "CRASH! You lost your money.";
                 moneySystem.SetProfitMultiplier(1f);
+
+                loseAudio.Play();
 
                 EndRound();
                 yield break;
