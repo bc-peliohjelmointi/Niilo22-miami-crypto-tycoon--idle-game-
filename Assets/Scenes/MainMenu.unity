@@ -1231,7 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e940a501ad9874ead69dc9cffadbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameScene: Juuso
+  newGameScene: TestScene (Topi)
 --- !u!4 &1987869940
 Transform:
   m_ObjectHideFlags: 0

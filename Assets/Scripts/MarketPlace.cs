@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MarketPlace : MonoBehaviour
@@ -29,6 +30,8 @@ public class MarketPlace : MonoBehaviour
 
     private MoneySystem moneySystem;
 
+    [SerializeField] private string newGameScene;
+
     private void Start()
     {
         moneySystem = FindFirstObjectByType<MoneySystem>();
@@ -51,6 +54,7 @@ public class MarketPlace : MonoBehaviour
     public void ExitKauppa()
     {
         kauppaCanvas.SetActive(false);
+        SceneManager.LoadScene(newGameScene);
     }
 
     private void UpdatePriceTexts()

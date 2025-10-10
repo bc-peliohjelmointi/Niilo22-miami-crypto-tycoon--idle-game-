@@ -342,6 +342,7 @@ MonoBehaviour:
   autoBaseCost: 85
   mukiBaseCost: 150
   palmuBaseCost: 5000
+  newGameScene: TestScene (Topi)
 --- !u!4 &1236778323
 Transform:
   m_ObjectHideFlags: 0

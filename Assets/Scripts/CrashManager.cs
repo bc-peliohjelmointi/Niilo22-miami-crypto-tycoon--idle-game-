@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CrashManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class CrashManager : MonoBehaviour
     // UI
     public TextMeshProUGUI statusText;
     public Button stopButton;
+    public GameObject defaultSelectedButton;
 
     // Sound
     public AudioSource audioSource;
@@ -135,6 +137,18 @@ public class CrashManager : MonoBehaviour
 
         if (rocket != null)
             rocket.SetActive(false); // Hide rocket after round ends
+
+        StartCoroutine(SelectDefaultButtonNextFrame());
+    }
+
+    IEnumerator SelectDefaultButtonNextFrame()
+    {
+        yield return null; // odota 1 frame, jotta UI ehtii aktivoitua
+        if (defaultSelectedButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(defaultSelectedButton);
+        }
     }
 
     void PlayRandomSound(AudioClip[] clips)

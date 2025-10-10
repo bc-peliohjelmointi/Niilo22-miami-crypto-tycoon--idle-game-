@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class MenuStarter : MonoBehaviour
 {
@@ -7,7 +8,12 @@ public class MenuStarter : MonoBehaviour
 
     void OnEnable()
     {
-        // Kun menu aktivoidaan, ohjain saa heti fokuksen ekaan nappiin
+        StartCoroutine(SelectWithDelay());
+    }
+
+    IEnumerator SelectWithDelay()
+    {
+        yield return null; // odota 1 frame
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSelected);
     }
