@@ -27,6 +27,11 @@ public class CrashManager : MonoBehaviour
     public AudioClip[] crashSounds; 
     public AudioClip[] winSounds;
 
+    public AudioSource backgroundSource;
+    public AudioSource backgroundAmbienceSource;
+    public AudioClip backgroundLoop;
+    public AudioClip backgroundAmbienceLoop;
+
 
     void Start()
     {
@@ -36,6 +41,20 @@ public class CrashManager : MonoBehaviour
         // Hide rocket until a round starts
         if (rocket != null)
             rocket.SetActive(false);
+
+        if (backgroundSource != null && backgroundLoop != null)
+        {
+            backgroundSource.clip = backgroundLoop;
+            backgroundSource.loop = true;
+            backgroundSource.Play();
+        }
+
+        if (backgroundAmbienceSource != null && backgroundAmbienceLoop != null)
+        {
+            backgroundAmbienceSource.clip = backgroundAmbienceLoop;
+            backgroundAmbienceSource.loop = true;
+            backgroundAmbienceSource.Play();
+        }
     }
 
     // Bet $5 button

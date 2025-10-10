@@ -32,6 +32,17 @@ public class MarketPlace : MonoBehaviour
 
     [SerializeField] private string newGameScene;
 
+    // Audios
+    public AudioSource audioSource;
+    public AudioClip kissaAudio;
+    public AudioClip autoAudio;
+    public AudioClip mukiAudio;
+    public AudioClip palmuAudio;
+
+    // BG music
+    public AudioSource backgroundSource;
+    public AudioClip backgroundLoop;
+
     private void Start()
     {
         moneySystem = FindFirstObjectByType<MoneySystem>();
@@ -43,6 +54,13 @@ public class MarketPlace : MonoBehaviour
         palmuCost = palmuBaseCost;
 
         UpdatePriceTexts();
+
+        if (backgroundSource != null && backgroundLoop != null) // Background music
+        {
+            backgroundSource.clip = backgroundLoop;
+            backgroundSource.loop = true;
+            backgroundSource.Play();
+        }
     }
 
     public void LoadKauppa()
@@ -75,6 +93,7 @@ public class MarketPlace : MonoBehaviour
             kissaCost = Mathf.RoundToInt(kissaCost * 1.5f);
             UpdatePriceTexts();
 
+            audioSource.PlayOneShot(kissaAudio);
             Debug.Log($" kissan tason {kissaLevel}");
         }
     }
@@ -90,6 +109,7 @@ public class MarketPlace : MonoBehaviour
             autoCost = Mathf.RoundToInt(autoCost * 2f);
             UpdatePriceTexts();
 
+            audioSource.PlayOneShot(autoAudio);
             Debug.Log($"Auto taso {autoLevel}");
         }
     }
@@ -105,6 +125,7 @@ public class MarketPlace : MonoBehaviour
             mukiCost = Mathf.RoundToInt(mukiCost * 1.8f);
             UpdatePriceTexts();
 
+            audioSource.PlayOneShot(mukiAudio);
             Debug.Log($"Muki taso {mukiLevel}");
         }
     }
@@ -118,6 +139,7 @@ public class MarketPlace : MonoBehaviour
             palmuCost = Mathf.RoundToInt(palmuCost * 2f);
             UpdatePriceTexts();
 
+            audioSource.PlayOneShot(palmuAudio);
             Debug.Log($"Palmu taso {palmuLevel}");
         }
     }
