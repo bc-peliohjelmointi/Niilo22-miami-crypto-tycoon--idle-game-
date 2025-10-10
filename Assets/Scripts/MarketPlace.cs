@@ -1,30 +1,51 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MarketPlace : MonoBehaviour
 {
     [SerializeField] private GameObject kauppaCanvas;
 
-    // napit ja hinnat
-    [SerializeField] private int kissaCost = 10;
-    [SerializeField] private int autoCost = 50;
-    [SerializeField] private int mukiCost = 20;
-    [SerializeField] private int palmuCost = 5;
+    
+    [SerializeField] private Text kissaPriceText;
+    [SerializeField] private Text autoPriceText;
+    [SerializeField] private Text mukiPriceText;
+    [SerializeField] private Text palmuPriceText;
+
+    
+    [SerializeField] private int kissaBaseCost = 10;
+    [SerializeField] private int autoBaseCost = 500;
+    [SerializeField] private int mukiBaseCost = 50;
+    [SerializeField] private int palmuBaseCost = 5;
+
+    private int kissaCost;
+    private int autoCost;
+    private int mukiCost;
+    private int palmuCost;
+
+    private int kissaLevel = 0;
+    private int autoLevel = 0;
+    private int mukiLevel = 0;
+    private int palmuLevel = 0;
 
     private MoneySystem moneySystem;
 
-    private bool kissaBought = false;
-    private bool autoBought = false;
-    private bool mukiBought = false;
-    private bool palmuBought = false;
-
     private void Start()
     {
-        moneySystem = MoneySystem.FindFirstObjectByType<MoneySystem>();
+        moneySystem = FindFirstObjectByType<MoneySystem>();
+
+        // Asetetaan lähtöhinnat
+        kissaCost = kissaBaseCost;
+        autoCost = autoBaseCost;
+        mukiCost = mukiBaseCost;
+        palmuCost = palmuBaseCost;
+
+        UpdatePriceTexts();
     }
 
     public void LoadKauppa()
     {
         kauppaCanvas.SetActive(true);
+        UpdatePriceTexts(); // päivitetään hinnat aina kun avataan
     }
 
     public void ExitKauppa()
@@ -32,46 +53,68 @@ public class MarketPlace : MonoBehaviour
         kauppaCanvas.SetActive(false);
     }
 
-    // kissa upgrade tuo passiivista tuottoa
+    private void UpdatePriceTexts()
+    {
+        if (kissaPriceText) kissaPriceText.text = "$" + kissaCost;
+        if (autoPriceText) autoPriceText.text = "$" + autoCost;
+        if (mukiPriceText) mukiPriceText.text = "$" + mukiCost;
+        if (palmuPriceText) palmuPriceText.text = "$" + palmuCost;
+    }
+
+    //Kissa upgrade = passiivinen tulonlähde
     public void BuyKissa()
     {
-        if (!kissaBought && moneySystem.SpendMoney(kissaCost))
+        if (moneySystem.SpendMoney(kissaCost))
         {
-            kissaBought = true;
-            moneySystem.AddPassiveIncome(1f); 
-            
+            kissaLevel++;
+            moneySystem.AddPassiveIncome(1f);
+            kissaCost = Mathf.RoundToInt(kissaCost * 1.5f);
+            UpdatePriceTexts();
+
+            Debug.Log($" kissan tason {kissaLevel}");
         }
     }
 
-    // auto upgarde antaa crash shieldin
+    // Auto upgrade = crash shield
     public void BuyAuto()
     {
-        if (!autoBought && moneySystem.SpendMoney(autoCost))
+        if (moneySystem.SpendMoney(autoCost))
         {
-            autoBought = true;
-            moneySystem.EnableCrashShield(0.1f);
-            Debug.Log("Ostit Auton");
+            autoLevel++;
+            float shieldValue = 0.1f * autoLevel;
+            moneySystem.EnableCrashShield(shieldValue);
+            autoCost = Mathf.RoundToInt(autoCost * 2f);
+            UpdatePriceTexts();
+
+            Debug.Log($"Auto taso {autoLevel}");
         }
     }
 
-    // 1.2x profit multiplier
+    // Muki upgrade = profit multiplier
     public void BuyMuki()
     {
-        if (!mukiBought && moneySystem.SpendMoney(mukiCost))
+        if (moneySystem.SpendMoney(mukiCost))
         {
-            mukiBought = true;
-            moneySystem.SetProfitMultiplier(1.2f); // 1.2x profits
-            Debug.Log("Ostit Muki");
+            mukiLevel++;
+            float multiplier = 1f + (0.2f * mukiLevel);
+            moneySystem.SetProfitMultiplier(multiplier);
+            mukiCost = Mathf.RoundToInt(mukiCost * 1.8f);
+            UpdatePriceTexts();
+
+            Debug.Log($"Muki taso {mukiLevel}");
         }
     }
 
-    // kosmeettinen esine
+    // Palmu upgrade = kosmetiikka item
     public void BuyPalmu()
     {
-        if (!palmuBought && moneySystem.SpendMoney(palmuCost))
+        if (moneySystem.SpendMoney(palmuCost))
         {
-            palmuBought = true;
-            Debug.Log("Ostit Palmun");
+            palmuLevel++;
+            palmuCost = Mathf.RoundToInt(palmuCost * 2f);
+            UpdatePriceTexts();
+
+            Debug.Log($"Palmu taso {palmuLevel}");
         }
     }
 }
