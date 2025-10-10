@@ -21,7 +21,10 @@ public class CrashManager : MonoBehaviour
     public Button stopButton;
 
     // Sound
-    public AudioSource loseAudio;
+    public AudioSource audioSource;
+    public AudioClip[] crashSounds; 
+    public AudioClip[] winSounds;
+
 
     void Start()
     {
@@ -83,7 +86,9 @@ public class CrashManager : MonoBehaviour
         float payout = betAmount * moneySystem.profitMultiplier;
         moneySystem.AddMoney(Mathf.RoundToInt(payout));
 
-        if (statusText) statusText.text = "You won!"; // simplified
+        if (statusText) statusText.text = "You won "+payout+"$"; // simplified
+
+        PlayRandomSound(winSounds);
 
         EndRound();
     }
@@ -104,7 +109,7 @@ public class CrashManager : MonoBehaviour
                 if (statusText) statusText.text = "CRASH! You lost your money.";
                 moneySystem.SetProfitMultiplier(1f);
 
-                loseAudio.Play();
+                PlayRandomSound(crashSounds);
 
                 EndRound();
                 yield break;
@@ -130,5 +135,15 @@ public class CrashManager : MonoBehaviour
 
         if (rocket != null)
             rocket.SetActive(false); // Hide rocket after round ends
+    }
+
+    void PlayRandomSound(AudioClip[] clips)
+    {
+        if (clips.Length == 0 || audioSource == null)
+            return;
+
+        int index = Random.Range(0, clips.Length);
+        audioSource.clip = clips[index];
+        audioSource.Play();
     }
 }

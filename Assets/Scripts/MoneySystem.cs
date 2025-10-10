@@ -44,7 +44,7 @@ public class MoneySystem : MonoBehaviour
 
     public void AddMoney(int amount)
     {
-        money += Mathf.RoundToInt(amount * profitMultiplier);
+        money += amount;
         UpdateMoneyUI();
     }
 
