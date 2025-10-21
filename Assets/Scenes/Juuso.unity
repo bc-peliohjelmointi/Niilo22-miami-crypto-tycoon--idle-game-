@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &327378120 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329135364679971247, guid: 58457e314e3aeea46b55d015c6fa7115, type: 3}
+  m_PrefabInstance: {fileID: 4101474104435105825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &419837943 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1329184047198972368, guid: 58457e314e3aeea46b55d015c6fa7115, type: 3}
@@ -337,7 +348,7 @@ MonoBehaviour:
   kauppaCanvas: {fileID: 419837943}
   kissaPriceText: {fileID: 4101474104435105828}
   autoPriceText: {fileID: 4101474104435105827}
-  mukiPriceText: {fileID: 4101474104435105826}
+  mukiPriceText: {fileID: 327378120}
   palmuPriceText: {fileID: 4101474104435105826}
   kissaBaseCost: 500
   autoBaseCost: 85
