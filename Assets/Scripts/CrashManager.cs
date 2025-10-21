@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CrashManager : MonoBehaviour
@@ -55,6 +56,14 @@ public class CrashManager : MonoBehaviour
             backgroundAmbienceSource.loop = true;
             backgroundAmbienceSource.Play();
         }
+        if (moneySystem == null)
+        {
+            moneySystem = FindObjectOfType<MoneySystem>();
+            if (moneySystem == null)
+            {
+                Debug.LogWarning("⚠️ CrashManager could not find a MoneySystem in the scene!");
+            }
+        }
     }
 
     // Bet $5 button
@@ -85,7 +94,7 @@ public class CrashManager : MonoBehaviour
             return;
         }
 
-        moneySystem.SetProfitMultiplier(1f);
+        moneySystem.roundMultiplier = moneySystem.baseProfitMultiplier;
 
         if (statusText) statusText.text = "Round started!";
         isRunning = true;
@@ -151,6 +160,8 @@ public class CrashManager : MonoBehaviour
         isRunning = false;
         betAmount = 0f;
 
+        moneySystem.SetProfitMultiplier(moneySystem.baseProfitMultiplier);
+
         if (stopButton != null)
             stopButton.interactable = false;
 
@@ -178,5 +189,10 @@ public class CrashManager : MonoBehaviour
         int index = Random.Range(0, clips.Length);
         audioSource.clip = clips[index];
         audioSource.Play();
+    }
+
+    public void ReturnToShop()
+    {
+        SceneManager.LoadScene("Juuso");
     }
 }

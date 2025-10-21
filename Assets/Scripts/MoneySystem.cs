@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MoneySystem : MonoBehaviour
 {
@@ -16,10 +17,45 @@ public class MoneySystem : MonoBehaviour
     private float passiveIncome = 0f;     // $/sekunti
     private float passiveTimer = 0f;
 
+    public float baseProfitMultiplier = 1f; // from upgrades
+    public float roundMultiplier = 1f;      // changes during round
+
+
+    void Awake()
+    {
+        MoneySystem[] systems = FindObjectsOfType<MoneySystem>();
+        if (systems.Length > 1)
+        {
+            Debug.Log("jghjgjh");
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        // Unsubscribe when destroyed
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Find new UI elements in the scene
+        moneyText = GameObject.FindWithTag("MoneyText")?.GetComponent<TextMeshProUGUI>();
+        multiplierText = GameObject.FindWithTag("MultiplierText")?.GetComponent<TextMeshProUGUI>();
+
+        // Update UI if found
+        UpdateMoneyUI();
+        UpdateMultiplierUI();
+    }
+
     void Start()
     {
         UpdateMoneyUI();
-        UpdateMultiplierUI();
+
     }
 
     void Update()
