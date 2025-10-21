@@ -22,6 +22,7 @@ public class MarketPlace : MonoBehaviour
     private int autoCost;
     private int mukiCost;
     private int palmuCost;
+    private bool isPalmuBought;
 
     private int kissaLevel = 0;
     private int autoLevel = 0;
@@ -137,6 +138,11 @@ public class MarketPlace : MonoBehaviour
         {
             palmuLevel++;
             palmuCost = Mathf.RoundToInt(palmuCost * 2f);
+            isPalmuBought = true;
+
+            PlayerPrefs.SetInt("PalmuUnlocked", 1);
+            PlayerPrefs.Save();
+
             UpdatePriceTexts();
 
             audioSource.PlayOneShot(palmuAudio);
