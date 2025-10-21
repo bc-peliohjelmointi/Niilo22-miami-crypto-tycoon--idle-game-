@@ -54,8 +54,14 @@ public class MoneySystem : MonoBehaviour
 
     void Start()
     {
-        UpdateMoneyUI();
+#if UNITY_EDITOR
+       
+        PlayerPrefs.SetInt("PalmuUnlocked", 0);
+        PlayerPrefs.Save();
+#endif
 
+        UpdateMoneyUI();
+        UpdateMultiplierUI();
     }
 
     void Update()

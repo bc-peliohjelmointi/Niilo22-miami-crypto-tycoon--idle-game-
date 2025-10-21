@@ -72,7 +72,7 @@ public class MarketPlace : MonoBehaviour
 
     public void ExitKauppa()
     {
-        kauppaCanvas.SetActive(false);
+        
         SceneManager.LoadScene(newGameScene);
     }
 
