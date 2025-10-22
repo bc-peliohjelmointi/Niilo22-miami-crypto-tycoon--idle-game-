@@ -133,6 +133,17 @@ public class CrashManager : MonoBehaviour
 
             if (crashNumber == 0)
             {
+                if (moneySystem.hasCrashShield)
+                {
+                    float chanceToSurvive = moneySystem.GetCrashShieldStrength(); // e.g., 0.1 = 10%
+                    if (Random.value < chanceToSurvive)
+                    {
+                        // Shield saves the round, maybe reduce shield strength
+                        Debug.Log("Crash avoided by shield!");
+                        continue; // skip crash this time
+                    }
+                }
+
                 if (explosionPrefab != null && rocket != null)
                     Instantiate(explosionPrefab, rocket.transform.position, Quaternion.identity);
 
