@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -24,11 +24,6 @@ public class MarketPlace : MonoBehaviour
     private int palmuCost;
     private bool isPalmuBought;
 
-    private int kissaLevel = 0;
-    private int autoLevel = 0;
-    private int mukiLevel = 0;
-    private int palmuLevel = 0;
-
     private MoneySystem moneySystem;
 
     [SerializeField] private string newGameScene;
@@ -48,11 +43,11 @@ public class MarketPlace : MonoBehaviour
     {
         moneySystem = FindFirstObjectByType<MoneySystem>();
 
-        // Asetetaan l‰htˆhinnat
-        kissaCost = kissaBaseCost;
-        autoCost = autoBaseCost;
-        mukiCost = mukiBaseCost;
-        palmuCost = palmuBaseCost;
+        // Asettaa ja p√§ivitt√§√§ hinnat
+        kissaCost = Mathf.RoundToInt(kissaBaseCost * Mathf.Pow(1.5f, moneySystem.kissaLevel));
+        autoCost = Mathf.RoundToInt(autoBaseCost * Mathf.Pow(2f, moneySystem.autoLevel));
+        mukiCost = Mathf.RoundToInt(mukiBaseCost * Mathf.Pow(1.8f, moneySystem.mukiLevel));
+        palmuCost = Mathf.RoundToInt(palmuBaseCost * Mathf.Pow(2f, moneySystem.palmuLevel));
 
         UpdatePriceTexts();
 
@@ -67,7 +62,7 @@ public class MarketPlace : MonoBehaviour
     public void LoadKauppa()
     {
         kauppaCanvas.SetActive(true);
-        UpdatePriceTexts(); // p‰ivitet‰‰n hinnat aina kun avataan
+        UpdatePriceTexts(); // p√§ivitet√§√§n hinnat aina kun avataan
     }
 
     public void ExitKauppa()
@@ -84,18 +79,18 @@ public class MarketPlace : MonoBehaviour
         if (palmuPriceText) palmuPriceText.text = "$" + palmuCost;
     }
 
-    //Kissa upgrade = passiivinen tulonl‰hde
+    //Kissa upgrade = passiivinen tulonl√§hde
     public void BuyKissa()
     {
         if (moneySystem.SpendMoney(kissaCost))
         {
-            kissaLevel++;
+            moneySystem.kissaLevel++;
             moneySystem.AddPassiveIncome(1f);
             kissaCost = Mathf.RoundToInt(kissaCost * 1.5f);
             UpdatePriceTexts();
 
             audioSource.PlayOneShot(kissaAudio);
-            Debug.Log($" kissan tason {kissaLevel}");
+            Debug.Log($"Kissa taso {moneySystem.kissaLevel}");
         }
     }
 
@@ -104,14 +99,14 @@ public class MarketPlace : MonoBehaviour
     {
         if (moneySystem.SpendMoney(autoCost))
         {
-            autoLevel++;
-            float shieldValue = 0.1f * autoLevel;
+            moneySystem.autoLevel++;
+            float shieldValue = 0.1f * moneySystem.autoLevel;
             moneySystem.EnableCrashShield(shieldValue);
             autoCost = Mathf.RoundToInt(autoCost * 2f);
             UpdatePriceTexts();
 
             audioSource.PlayOneShot(autoAudio);
-            Debug.Log($"Auto taso {autoLevel}");
+            Debug.Log($"Auto taso {moneySystem.autoLevel}");
         }
     }
 
@@ -120,14 +115,14 @@ public class MarketPlace : MonoBehaviour
     {
         if (moneySystem.SpendMoney(mukiCost))
         {
-            mukiLevel++;
-            float multiplier = 1f + (0.2f * mukiLevel);
+            moneySystem.mukiLevel++;
+            float multiplier = 1f + (0.2f * moneySystem.mukiLevel);
             moneySystem.SetProfitMultiplier(multiplier);
             mukiCost = Mathf.RoundToInt(mukiCost * 1.8f);
             UpdatePriceTexts();
 
             audioSource.PlayOneShot(mukiAudio);
-            Debug.Log($"Muki taso {mukiLevel}");
+            Debug.Log($"Muki taso {moneySystem.mukiLevel}");
         }
     }
 
@@ -136,17 +131,20 @@ public class MarketPlace : MonoBehaviour
     {
         if (moneySystem.SpendMoney(palmuCost))
         {
-            palmuLevel++;
+            moneySystem.palmuLevel++;
             palmuCost = Mathf.RoundToInt(palmuCost * 2f);
-            isPalmuBought = true;
 
+            moneySystem.isPalmuUnlocked = true; // Store unlock permanently
+
+            // Save this if you use PlayerPrefs for long-term persistence
             PlayerPrefs.SetInt("PalmuUnlocked", 1);
             PlayerPrefs.Save();
+
 
             UpdatePriceTexts();
 
             audioSource.PlayOneShot(palmuAudio);
-            Debug.Log($"Palmu taso {palmuLevel}");
+            Debug.Log($"Palmu taso {moneySystem.palmuLevel}");
         }
     }
 }

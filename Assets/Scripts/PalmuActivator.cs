@@ -2,23 +2,22 @@ using UnityEngine;
 
 public class PalmuActivator : MonoBehaviour
 {
-    [SerializeField] private GameObject palmuImage; // vedä tähän palmun kuva (esim. PNG UI Image)
+    [SerializeField] private GameObject palmuImage;
+    private MoneySystem moneySystem;
+
+    void Awake()
+    {
+        // Hide immediately so no flicker
+        if (palmuImage != null)
+            palmuImage.SetActive(false);
+    }
 
     void Start()
     {
-        // Tarkistetaan, onko palmu ostettu
-        if (PlayerPrefs.GetInt("PalmuUnlocked", 0) == 1)
-        {
-            if (palmuImage != null)
-            {
-                palmuImage.SetActive(true);
-                
-            }
-        }
-        else
-        {
-            if (palmuImage != null)
-                palmuImage.SetActive(false);
-        }
+        moneySystem = FindFirstObjectByType<MoneySystem>();
+        if (moneySystem == null || palmuImage == null) return;
+
+        // Show if unlocked
+        palmuImage.SetActive(moneySystem.isPalmuUnlocked);
     }
 }

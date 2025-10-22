@@ -20,6 +20,12 @@ public class MoneySystem : MonoBehaviour
     public float baseProfitMultiplier = 1f; // from upgrades
     public float roundMultiplier = 1f;      // changes during round
 
+    public int kissaLevel = 0;
+    public int autoLevel = 0;
+    public int mukiLevel = 0;
+    public int palmuLevel = 0;
+
+    public bool isPalmuUnlocked = false;
 
     void Awake()
     {
@@ -54,6 +60,8 @@ public class MoneySystem : MonoBehaviour
 
     void Start()
     {
+        isPalmuUnlocked = false;
+
         UpdateMoneyUI();
 
     }
