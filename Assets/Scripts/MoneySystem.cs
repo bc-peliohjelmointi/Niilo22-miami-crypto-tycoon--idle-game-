@@ -63,7 +63,11 @@ public class MoneySystem : MonoBehaviour
         isPalmuUnlocked = false;
 
         UpdateMoneyUI();
-
+       
+        PlayerPrefs.SetInt("PalmuUnlocked", 0);
+        PlayerPrefs.Save();
+        UpdateMoneyUI();
+        UpdateMultiplierUI();
     }
 
     void Update()
