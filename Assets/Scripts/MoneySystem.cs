@@ -9,6 +9,7 @@ public class MoneySystem : MonoBehaviour
     public TextMeshProUGUI moneyText;
 
     public float profitMultiplier = 1f;   // Alussa 1.0x
+    public float multiplierAmount = 0.25f;
     public TextMeshProUGUI multiplierText;
 
     public bool hasCrashShield = false;   // Onko crash shield ostettu

@@ -151,6 +151,7 @@ MonoBehaviour:
   money: 100
   moneyText: {fileID: 0}
   profitMultiplier: 1
+  multiplierAmount: 0.25
   multiplierText: {fileID: 0}
   hasCrashShield: 0
   baseProfitMultiplier: 1
@@ -1326,7 +1327,7 @@ MonoBehaviour:
   rocket: {fileID: 789581243}
   explosionPrefab: {fileID: 1074767390804159220, guid: fc6b564624bf9ad4a9ffef821fa9fbbe, type: 3}
   moneySystem: {fileID: 0}
-  chance: 8
+  chance: 7
   statusText: {fileID: 901228813}
   stopButton: {fileID: 850604363}
   defaultSelectedButton: {fileID: 1201017855}

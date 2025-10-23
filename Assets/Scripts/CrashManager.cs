@@ -157,7 +157,7 @@ public class CrashManager : MonoBehaviour
             }
             else
             {
-                moneySystem.SetProfitMultiplier(moneySystem.profitMultiplier + 0.25f);
+                moneySystem.SetProfitMultiplier(moneySystem.profitMultiplier + moneySystem.multiplierAmount);
             }
         }
     }

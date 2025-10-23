@@ -116,8 +116,8 @@ public class MarketPlace : MonoBehaviour
         if (moneySystem.SpendMoney(mukiCost))
         {
             moneySystem.mukiLevel++;
-            float multiplier = 1f + (0.2f * moneySystem.mukiLevel);
-            moneySystem.SetProfitMultiplier(multiplier);
+            moneySystem.multiplierAmount += 0.01f;
+
             mukiCost = Mathf.RoundToInt(mukiCost * 1.8f);
             UpdatePriceTexts();
 
