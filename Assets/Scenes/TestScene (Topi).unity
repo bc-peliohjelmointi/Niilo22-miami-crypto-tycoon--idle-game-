@@ -155,6 +155,11 @@ MonoBehaviour:
   hasCrashShield: 0
   baseProfitMultiplier: 1
   roundMultiplier: 1
+  kissaLevel: 0
+  autoLevel: 0
+  mukiLevel: 0
+  palmuLevel: 0
+  isPalmuUnlocked: 0
 --- !u!4 &77023279
 Transform:
   m_ObjectHideFlags: 0
@@ -1321,7 +1326,7 @@ MonoBehaviour:
   rocket: {fileID: 789581243}
   explosionPrefab: {fileID: 1074767390804159220, guid: fc6b564624bf9ad4a9ffef821fa9fbbe, type: 3}
   moneySystem: {fileID: 0}
-  chance: 4
+  chance: 8
   statusText: {fileID: 901228813}
   stopButton: {fileID: 850604363}
   defaultSelectedButton: {fileID: 1201017855}
